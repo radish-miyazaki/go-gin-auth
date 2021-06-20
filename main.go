@@ -14,7 +14,6 @@ func main() {
 
 	// Routerの生成
 	r := gin.Default()
-	routes.Setup(r)
 
 	// CORSの設定
 	r.Use(cors.New(cors.Config{
@@ -45,6 +44,8 @@ func main() {
 		// preflightリクエストの結果をキャッシュする時間
 		MaxAge: 24 * time.Hour,
 	}))
+
+	routes.Setup(r)
 
 	// サーバー起動
 	if err := r.Run(":8080"); err != nil {
