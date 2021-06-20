@@ -43,6 +43,7 @@ func Forgot(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"message": err,
 		})
+		return
 	}
 
 	c.JSON(http.StatusOK, gin.H{
@@ -74,6 +75,7 @@ func Reset(c *gin.Context) {
 		c.JSON(http.StatusBadRequest, gin.H{
 			"message": "Invalid token!",
 		})
+		return
 	}
 
 	password, _ := bcrypt.GenerateFromPassword([]byte(data["password"]), 14)
