@@ -41,7 +41,12 @@ func Register(c *gin.Context) {
 		Password:  password,
 	}
 	// DBに保存
-	db.DB.Create(&u)
+	if err := db.DB.Create(&u).Error; err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{
+			"message": err,
+		})
+		return
+	}
 
 	// 作成したユーザとステータスを返す
 	c.JSON(http.StatusCreated, u)
